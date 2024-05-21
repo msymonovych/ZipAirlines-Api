@@ -17,4 +17,7 @@ class Airplane(models.Model):
         return self.get_fuel_consumption() + (self.passengers * 0.002)
 
     def get_max_flight_minutes(self):
-        return self.get_fuel_tank_capacity() // self.get_actual_fuel_consumption()
+        return (
+            self.get_fuel_tank_capacity()
+            // self.get_actual_fuel_consumption()
+        )

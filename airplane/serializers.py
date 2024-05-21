@@ -13,7 +13,9 @@ class AirplaneSerializer(serializers.ModelSerializer):
     def create(self, validated_data: Dict[str, Any]) -> Airplane:
         max_airplane = 10
         if Airplane.objects.count() >= max_airplane:
-            raise serializers.ValidationError("Cannot create more airplanes. Limit reached.")
+            raise serializers.ValidationError(
+                "Cannot create more airplanes. Limit reached."
+            )
         return super().create(validated_data)
 
 
@@ -22,10 +24,18 @@ class AirplaneListSerializer(AirplaneSerializer):
 
 
 class AirplaneDetailSerializer(AirplaneSerializer):
-    fuel_tank_capacity = serializers.IntegerField(source="get_fuel_tank_capacity", read_only=True)
-    fuel_consumption = serializers.FloatField(source="get_fuel_consumption", read_only=True)
-    actual_fuel_consumption = serializers.FloatField(source="get_actual_fuel_consumption", read_only=True)
-    max_flight_minutes = serializers.IntegerField(source="get_max_flight_minutes", read_only=True)
+    fuel_tank_capacity = serializers.IntegerField(
+        source="get_fuel_tank_capacity", read_only=True
+    )
+    fuel_consumption = serializers.FloatField(
+        source="get_fuel_consumption", read_only=True
+    )
+    actual_fuel_consumption = serializers.FloatField(
+        source="get_actual_fuel_consumption", read_only=True
+    )
+    max_flight_minutes = serializers.IntegerField(
+        source="get_max_flight_minutes", read_only=True
+    )
 
     class Meta:
         model = Airplane
